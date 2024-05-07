@@ -1,0 +1,1256 @@
+definitions:
+  client.InstructorHistory:
+    properties:
+      extendPrefix:
+        type: string
+      extendPrefixEng:
+        type: string
+      firstName:
+        type: string
+      firstNameEng:
+        type: string
+      instructorId:
+        type: integer
+      lastName:
+        type: string
+      lastNameEng:
+        type: string
+      prefix:
+        type: string
+      prefixEng:
+        type: string
+    type: object
+  client.SchedulesHistory:
+    properties:
+      endTime:
+        type: string
+      location:
+        type: string
+      startTime:
+        type: string
+      weekDay:
+        type: integer
+      weekDayName:
+        type: string
+    type: object
+  health.Response:
+    properties:
+      status:
+        type: string
+    type: object
+  httputil.ErrorCode:
+    enum:
+    - "0001"
+    - "0002"
+    - "0003"
+    - "0004"
+    - "0005"
+    - "0006"
+    - "9999"
+    type: string
+    x-enum-varnames:
+    - BadRequest
+    - NotFound
+    - CreateUserError
+    - StatusForbidden
+    - StatusUnauthorized
+    - InternalServerError
+    - InvalidStatus
+  httputil.HTTPBadRequestError:
+    properties:
+      field:
+        type: string
+      message:
+        type: string
+    type: object
+  httputil.HTTPBadRequestErrors:
+    properties:
+      code:
+        $ref: '#/definitions/httputil.ErrorCode'
+      errors:
+        items:
+          $ref: '#/definitions/httputil.HTTPBadRequestError'
+        type: array
+      message:
+        type: string
+    type: object
+  httputil.HTTPError:
+    properties:
+      code:
+        $ref: '#/definitions/httputil.ErrorCode'
+      message:
+        type: string
+      messageEn:
+        type: string
+    type: object
+  registration.ConfirmCourseRequest:
+    properties:
+      action:
+        type: integer
+      classid:
+        type: integer
+      coursecode:
+        type: string
+      courseid:
+        type: integer
+      creditattempt:
+        type: number
+      grademode:
+        enum:
+        - GD
+        - SW
+        type: string
+      section:
+        type: string
+    required:
+    - action
+    - classid
+    - coursecode
+    - courseid
+    - creditattempt
+    - grademode
+    - section
+    type: object
+  registration.ConfirmCourseResponse:
+    properties:
+      action:
+        type: integer
+      classid:
+        type: integer
+      creditattempt:
+        type: number
+      errorid:
+        type: integer
+      errorstring:
+        type: string
+      grademode:
+        type: string
+    type: object
+  registration.ConfirmRequest:
+    properties:
+      course:
+        items:
+          $ref: '#/definitions/registration.ConfirmCourseRequest'
+        type: array
+      ip:
+        type: string
+    required:
+    - course
+    - ip
+    type: object
+  registration.ConfirmResponse:
+    properties:
+      course:
+        items:
+          $ref: '#/definitions/registration.ConfirmCourseResponse'
+        type: array
+      errorid:
+        type: integer
+      errorstring:
+        type: string
+      ip:
+        type: string
+      studentId:
+        type: string
+    type: object
+  registration.CourseDetail:
+    properties:
+      condition:
+        type: string
+      courseCode:
+        type: string
+      courseId:
+        type: integer
+      courseName:
+        type: string
+      courseNameEng:
+        type: string
+      courseTypeName:
+        type: string
+      courseTypeNameEng:
+        type: string
+      courseUnit:
+        type: string
+      credittotal:
+        type: integer
+      facultyId:
+        type: integer
+      facultyName:
+        type: string
+      facultyNameEng:
+        type: string
+      grademode:
+        type: string
+      levelId:
+        type: integer
+      levelName:
+        type: string
+      levelNameEng:
+        type: string
+    type: object
+  registration.CourseSectionDetail:
+    properties:
+      courseCode:
+        type: string
+      courseDescription:
+        type: string
+      courseId:
+        type: integer
+      courseName:
+        type: string
+      courseNameEng:
+        type: string
+      finalSchedules:
+        items:
+          $ref: '#/definitions/registration.CourseSectionDetailSchedule'
+        type: array
+      midTermSchedules:
+        items:
+          $ref: '#/definitions/registration.CourseSectionDetailSchedule'
+        type: array
+      programs:
+        items:
+          $ref: '#/definitions/registration.Program'
+        type: array
+      reserveFor:
+        items:
+          $ref: '#/definitions/registration.ReserveInfo'
+        type: array
+      section:
+        type: string
+    type: object
+  registration.CourseSectionDetailSchedule:
+    properties:
+      date:
+        type: string
+      endTime:
+        type: string
+      location:
+        type: string
+      startTime:
+        type: string
+    type: object
+  registration.CourseTracking:
+    properties:
+      course:
+        $ref: '#/definitions/registration.CourseTrackingDetail'
+      errorString:
+        type: string
+      errorid:
+        type: integer
+      sections:
+        items:
+          $ref: '#/definitions/registration.SectionTracking'
+        type: array
+    type: object
+  registration.CourseTrackingDetail:
+    properties:
+      action:
+        type: integer
+      condition:
+        type: string
+      courseCode:
+        type: string
+      courseId:
+        type: integer
+      courseName:
+        type: string
+      courseNameEng:
+        type: string
+      courseTypeName:
+        type: string
+      courseTypeNameEng:
+        type: string
+      courseUnit:
+        type: string
+      creditattempt:
+        type: number
+      credittotal:
+        type: integer
+      facultyId:
+        type: integer
+      facultyName:
+        type: string
+      facultyNameEng:
+        type: string
+      grademode:
+        type: string
+      levelId:
+        type: integer
+      levelName:
+        type: string
+      levelNameEng:
+        type: string
+    type: object
+  registration.CoursesResponse:
+    properties:
+      courseCode:
+        type: string
+      courseId:
+        type: integer
+      courseName:
+        type: string
+      courseNameEng:
+        type: string
+      courseTypeName:
+        type: string
+      courseTypeNameEng:
+        type: string
+      courseUnit:
+        type: string
+      creditTotal:
+        type: integer
+      facultyId:
+        type: integer
+      facultyName:
+        type: string
+      facultyNameEng:
+        type: string
+      gradeMode:
+        type: string
+      isInProgramStructure:
+        type: boolean
+      isReserveSeat:
+        type: boolean
+      levelId:
+        type: integer
+      levelName:
+        type: string
+      levelNameEng:
+        type: string
+    type: object
+  registration.Debt:
+    properties:
+      amount:
+        type: number
+      balance:
+        type: number
+      courseCode:
+        type: string
+      courseName:
+        type: string
+      courseNameEng:
+        type: string
+      feeId:
+        type: integer
+      feeName:
+        type: string
+      feeNameEng:
+        type: string
+      voucherName:
+        type: string
+    type: object
+  registration.DebtResponse:
+    properties:
+      acadYear:
+        type: string
+      debt:
+        items:
+          $ref: '#/definitions/registration.Debt'
+        type: array
+      paid:
+        items:
+          $ref: '#/definitions/registration.Debt'
+        type: array
+      process:
+        items:
+          $ref: '#/definitions/registration.Debt'
+        type: array
+      semester:
+        type: string
+    type: object
+  registration.EnrollmentHistory:
+    properties:
+      classId:
+        type: integer
+      courseCode:
+        type: string
+      courseId:
+        type: integer
+      courseName:
+        type: string
+      courseNameEng:
+        type: string
+      courseUnit:
+        type: string
+      creditattempt:
+        type: integer
+      facultyName:
+        type: string
+      facultyNameEng:
+        type: string
+      grademode:
+        type: string
+      instructors:
+        items:
+          $ref: '#/definitions/registration.Instructors'
+        type: array
+      isInProgramStructure:
+        type: boolean
+      isReserveSeat:
+        type: boolean
+      schedules:
+        items:
+          $ref: '#/definitions/registration.SectionSchedules'
+        type: array
+      section:
+        type: string
+    type: object
+  registration.EventResponse:
+    properties:
+      acadYear:
+        type: integer
+      endDate:
+        type: string
+      scheduleCode:
+        type: integer
+      semester:
+        type: integer
+      startDate:
+        type: string
+      title:
+        type: string
+      titleEng:
+        type: string
+    type: object
+  registration.GetCourseSection:
+    properties:
+      acadYear:
+        type: integer
+      course:
+        $ref: '#/definitions/registration.CourseDetail'
+      sections:
+        items:
+          $ref: '#/definitions/registration.SectionInfo'
+        type: array
+      semester:
+        type: integer
+    type: object
+  registration.GetCoursesResponse:
+    properties:
+      acadYear:
+        type: integer
+      courses:
+        items:
+          $ref: '#/definitions/registration.CoursesResponse'
+        type: array
+      semester:
+        type: integer
+    type: object
+  registration.GetEnrollmentHistoryResponse:
+    properties:
+      acadYear:
+        type: string
+      enrollmentHistory:
+        items:
+          $ref: '#/definitions/registration.EnrollmentHistory'
+        type: array
+      semester:
+        type: string
+    type: object
+  registration.GetPreRegistrationHistoryResponse:
+    properties:
+      action:
+        type: integer
+      classId:
+        type: integer
+      condition:
+        type: string
+      courseCode:
+        type: string
+      courseId:
+        type: integer
+      courseName:
+        type: string
+      courseNameEng:
+        type: string
+      courseTypeName:
+        type: string
+      courseTypeNameEng:
+        type: string
+      courseUnit:
+        type: string
+      creditattempt:
+        type: integer
+      credittotal:
+        type: integer
+      facultyId:
+        type: integer
+      facultyName:
+        type: string
+      facultyNameEng:
+        type: string
+      grademode:
+        type: string
+      instructors:
+        items:
+          $ref: '#/definitions/client.InstructorHistory'
+        type: array
+      isInProgramStructure:
+        type: boolean
+      isReserveSeat:
+        type: boolean
+      levelId:
+        type: integer
+      levelName:
+        type: string
+      levelNameEng:
+        type: string
+      schedules:
+        items:
+          $ref: '#/definitions/client.SchedulesHistory'
+        type: array
+      section:
+        type: string
+    type: object
+  registration.GetRegistrationHistoryCourseResponse:
+    properties:
+      action:
+        type: integer
+      courseCode:
+        type: string
+      courseId:
+        type: integer
+      courseName:
+        type: string
+      courseNameEng:
+        type: string
+      courseUnit:
+        type: string
+      creditattempt:
+        type: integer
+      grademode:
+        type: string
+      section:
+        type: string
+    type: object
+  registration.GetRegistrationHistoryResponse:
+    properties:
+      acadYear:
+        type: integer
+      course:
+        items:
+          $ref: '#/definitions/registration.GetRegistrationHistoryCourseResponse'
+        type: array
+      registrationDate:
+        type: string
+      semester:
+        type: integer
+      sequence:
+        type: integer
+      studentId:
+        type: string
+    type: object
+  registration.GetRegistrationStatusResponse:
+    properties:
+      data:
+        $ref: '#/definitions/registration.InfoRegister'
+      status:
+        $ref: '#/definitions/registration.StatusEnum'
+    type: object
+  registration.InfoRegister:
+    properties:
+      responseREG:
+        $ref: '#/definitions/registration.ConfirmResponse'
+      statusCode:
+        type: string
+    type: object
+  registration.Instructors:
+    properties:
+      extendPrefix:
+        type: string
+      extendPrefixEng:
+        type: string
+      firstName:
+        type: string
+      firstNameEng:
+        type: string
+      instructorId:
+        type: integer
+      lastName:
+        type: string
+      lastNameEng:
+        type: string
+      prefix:
+        type: string
+      prefixEng:
+        type: string
+    type: object
+  registration.NewsResponse:
+    properties:
+      announcerId:
+        type: string
+      campus:
+        items:
+          type: string
+        type: array
+      categoryId:
+        type: string
+      content:
+        type: string
+      createBy:
+        type: string
+      createDate:
+        type: string
+      id:
+        type: string
+      imageBanner:
+        type: string
+      imageBannerName:
+        type: string
+      images:
+        items:
+          type: string
+        type: array
+      isDeleted:
+        type: boolean
+      newsId:
+        type: string
+      publishDate:
+        type: string
+      status:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+      unpublishDate:
+        type: string
+      updateBy:
+        type: string
+      updateDate:
+        type: string
+    type: object
+  registration.Program:
+    properties:
+      departmentId:
+        type: integer
+      departmentName:
+        type: string
+      departmentNameEng:
+        type: string
+      facultyId:
+        type: integer
+      facultyName:
+        type: string
+      facultyNameEng:
+        type: string
+    type: object
+  registration.RegistrationPeriodResponse:
+    properties:
+      addDeleteExchangeEndDate:
+        type: string
+      addDeleteExchangeStartDate:
+        type: string
+      confirmEndDate:
+        type: string
+      confirmStartDate:
+        type: string
+      isAddDeleteExchangePeriod:
+        type: boolean
+      isConfirmationRegistrationPeriod:
+        type: boolean
+      isPaymentPeriod:
+        type: boolean
+      paymentEndDate:
+        type: string
+      paymentStartDate:
+        type: string
+    type: object
+  registration.ReserveInfo:
+    properties:
+      campusId:
+        type: integer
+      campusName:
+        type: string
+      campusNameEng:
+        type: string
+      departmentId:
+        type: integer
+      departmentName:
+        type: string
+      departmentNameEng:
+        type: string
+      facultyId:
+        type: integer
+      facultyName:
+        type: string
+      facultyNameEng:
+        type: string
+      reserveInfo:
+        type: string
+      seatInfo:
+        $ref: '#/definitions/registration.SeatQuantity'
+    type: object
+  registration.SeatQuantity:
+    properties:
+      reserved:
+        type: integer
+      total:
+        type: integer
+    type: object
+  registration.SectionInfo:
+    properties:
+      classId:
+        type: integer
+      instructors:
+        items:
+          $ref: '#/definitions/registration.Instructors'
+        type: array
+      isInProgramStructure:
+        type: boolean
+      isReserveSeat:
+        type: boolean
+      remark:
+        type: string
+      schedules:
+        items:
+          $ref: '#/definitions/registration.SectionSchedules'
+        type: array
+      seatInfo:
+        $ref: '#/definitions/registration.SeatQuantity'
+      section:
+        type: string
+    type: object
+  registration.SectionSchedules:
+    properties:
+      endTime:
+        type: string
+      location:
+        type: string
+      startTime:
+        type: string
+      weekDay:
+        type: integer
+      weekDayName:
+        type: string
+    type: object
+  registration.SectionTracking:
+    properties:
+      classId:
+        type: integer
+      instructors:
+        items:
+          $ref: '#/definitions/registration.Instructors'
+        type: array
+      isInProgramStructure:
+        type: boolean
+      isReserveSeat:
+        type: boolean
+      remark:
+        type: string
+      schedules:
+        items:
+          $ref: '#/definitions/registration.SectionSchedules'
+        type: array
+      seatInfo:
+        $ref: '#/definitions/registration.SeatQuantity'
+      section:
+        type: string
+    type: object
+  registration.StatusEnum:
+    enum:
+    - SUCCESS
+    - FAILED
+    - RETRY
+    - PROCESS
+    type: string
+    x-enum-varnames:
+    - SubmissionStatusSuccess
+    - SubmissionStatusFailed
+    - SubmissionStatusRetry
+    - SubmissionStatusProcess
+  registration.TokenResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  registration.Tracking:
+    properties:
+      courses:
+        items:
+          $ref: '#/definitions/registration.CourseTracking'
+        type: array
+      errorString:
+        type: string
+      errorid:
+        type: integer
+      registrationStatus: {}
+      sequenceConfirm:
+        type: integer
+      sequenceSubmit:
+        type: integer
+    type: object
+  version.Response:
+    properties:
+      build:
+        type: string
+      buildTime:
+        type: string
+      version:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This file for generate swagger
+  title: Registration API
+paths:
+  /confirm:
+    post:
+      description: Confirm registration student
+      operationId: Confirm registration student
+      parameters:
+      - description: Confirm registration student
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/registration.ConfirmRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Registration confirmed successfully.
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPBadRequestErrors'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - Bearer: []
+      summary: Confirm registration student
+      tags:
+      - Register
+  /confirm-period:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        Get confirmation period
+        API for GET confirmation period
+      operationId: Get confirmation period
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.RegistrationPeriodResponse'
+      security:
+      - Bearer: []
+      summary: Get confirmation period
+      tags:
+      - Subject
+  /confirm/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Fetches a single record using its unique ID from the confirmation
+        collection.
+      operationId: get-record-by-confirmation-id
+      parameters:
+      - description: Record ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.GetRegistrationStatusResponse'
+        "400":
+          description: Record ID not found or invalid
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - Bearer: []
+      summary: Retrieves a record by ID from the confirmation collection
+      tags:
+      - Register
+  /courses:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        Get courses from studentID studentYear and studentSemester
+        API for GET courses from studentID studentYear and studentSemester
+      operationId: Get courses from studentID studentYear and studentSemester
+      parameters:
+      - description: Search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.GetCoursesResponse'
+      security:
+      - Bearer: []
+      summary: Get courses from studentID studentYear and studentSemester
+      tags:
+      - Subject
+  /courses/{courseId}/sections:
+    get:
+      consumes:
+      - application/json
+      description: Get sections by course
+      operationId: Get sections by course
+      parameters:
+      - description: Course ID
+        in: path
+        name: courseId
+        required: true
+        type: integer
+      - description: Search
+        example: section , firstName of Instructor
+        in: query
+        name: search
+        type: string
+      - description: Filter
+        example: isReserveSeat, isInProgramStructure
+        in: query
+        name: filter
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.GetCourseSection'
+      security:
+      - Bearer: []
+      summary: Get sections by course
+      tags:
+      - Subject
+  /courses/{courseId}/sections/{section}:
+    get:
+      consumes:
+      - application/json
+      description: Get section detail by course
+      operationId: Get section detail by course
+      parameters:
+      - description: Course ID
+        in: path
+        name: courseId
+        required: true
+        type: integer
+      - description: Section
+        in: path
+        name: section
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/registration.CourseSectionDetail'
+            type: array
+      security:
+      - Bearer: []
+      summary: Get section detail by course
+      tags:
+      - Subject
+  /debt:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        Get debt for the student in current semester
+        API for getting debt for registration
+      operationId: Get debt on the current semester
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.DebtResponse'
+      security:
+      - Bearer: []
+      summary: Get debt
+      tags:
+      - Subject
+  /enrollment/history:
+    get:
+      consumes:
+      - application/json
+      description: Get enrollment history for the student in current semester
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.GetEnrollmentHistoryResponse'
+      security:
+      - Bearer: []
+      summary: Get enrollment history
+      tags:
+      - Subject
+  /events:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        Get event registration
+        API for GET event
+      operationId: Get event registration
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/registration.EventResponse'
+            type: array
+      security:
+      - Bearer: []
+      summary: Get event registration
+      tags:
+      - Subject
+  /health:
+    get:
+      description: Health checking for the service
+      operationId: HealthCheckHandler
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health.Response'
+      summary: Health Check
+  /history:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        View information that students have previously registered.
+        API for GET courses for view information that students have previously registered
+      operationId: Get registration history data from student ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/registration.GetRegistrationHistoryResponse'
+            type: array
+      security:
+      - Bearer: []
+      summary: Get registration history
+      tags:
+      - Subject
+  /news/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get news by ID
+      operationId: Get news by ID
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.NewsResponse'
+      security:
+      - Bearer: []
+      summary: Get news by ID
+      tags:
+      - News
+  /pre-registration:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        View information that students have pre registered.
+        API for GET courses for view information that students have pre registered
+      operationId: Get pre registration history data from student ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/registration.GetPreRegistrationHistoryResponse'
+            type: array
+      security:
+      - Bearer: []
+      summary: Get pre registration history
+      tags:
+      - Subject
+  /submit:
+    post:
+      description: Submit registration student
+      operationId: Submit registration student
+      parameters:
+      - description: Submit registration student
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/registration.ConfirmRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Registration submitted successfully.
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPBadRequestErrors'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - Bearer: []
+      summary: Submit registration student
+      tags:
+      - Register
+  /submit/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Fetches a single record using its unique ID from the submission
+        collection.
+      operationId: get-record-by-submission-id
+      parameters:
+      - description: Record ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.GetRegistrationStatusResponse'
+        "400":
+          description: Record ID not found or invalid
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - Bearer: []
+      summary: Retrieves a record by ID from the submission collection
+      tags:
+      - Register
+  /suggestion:
+    get:
+      consumes:
+      - application/json
+      description: Get suggested courses for a given academic year and semester
+      operationId: GetSuggestionCourses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.GetCoursesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get suggested courses for a given academic year and semester
+      tags:
+      - Subject
+  /tokens:
+    get:
+      consumes:
+      - application/json
+      description: get token from registration service
+      operationId: GetTokenHandler
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.TokenResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - Bearer: []
+      summary: GetTokenHandler
+      tags:
+      - Token
+  /tracking-status:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        Get registration status.
+        API for GET registration status
+      operationId: Get registration status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/registration.Tracking'
+      security:
+      - Bearer: []
+      summary: Get registration status
+      tags:
+      - Register
+  /version:
+    get:
+      description: Version for the service
+      operationId: VersionHandler
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/version.Response'
+      summary: Version
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
