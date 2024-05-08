@@ -609,7 +609,7 @@ func PushKafkaHandler(p *producer.Producer) gin.HandlerFunc {
 			return
 		}
 
-		p.ProduceMessage(string(TopicNotifySubmit), msg)
+		p.ProduceMessage(string(TopicRegisSubmit), msg)
 		log.Print("Send topic regis confirm to kafka")
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "Send topic regis submit to kafka",

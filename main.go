@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os/signal"
@@ -120,9 +121,10 @@ func main() {
 	}
 
 	go func() {
+		fmt.Println("Server is up and running on port", server.Addr)
 		err := server.ListenAndServe()
 		if err != nil && err != http.ErrServerClosed {
-			log.Fatal("listen :3000", err)
+			log.Fatalf("Error starting server: %v", err)
 		}
 	}()
 
